@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        .carousel{
+            position: relative;
+            width: 880px;
+            height: 550px;
+            border: 1px solid #333;
+            margin: 50px auto;
+        }
+        .pic li{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 880px;
+            height: 550px;
+            display: none;
+        }
+        .pic li.current{
+            display: block;
+        }
+        .btn a{
+            position: absolute;
+            top: 50%;
+            width: 80px;
+            height: 80px;
+            margin-top: -40px;
+            background-color: rgba(255,255,255,0.3);
+            text-decoration: none;
+            color: #444;
+            text-align: center;
+            line-height: 80px;
+            font-size: 60px;
+            font-family: "SimSun";
+        }
+        .btn .left{
+            left: 10px;
+        }
+        .btn .right{
+            right: 10px;
+        }
+        .btn a:hover{
+            background-color: rgba(255,255,255,0.7);
+        }
+        .sub{
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            width: 200px;
+            height: 40px;
+            margin-left: -100px;
+            border-radius: 20px;
+            background-color: rgba(255,255,255,0.3);
+        }
+        .sub li{
+            float: left;
+            width: 20px;
+            height: 20px;
+            margin: 10px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+        .sub li.current{
+            background-color: #0ff;
+        }
+    </style>
+    </style>
+</head>
+<body>
+    <div class="carousel" id="carousel">
+        <ul class="pic" id="pic">
+            <li class="current"><img src="images/01.jpg" alt=""></li>
+            <li><img src="images/02.jpg" alt=""></li>
+            <li><img src="images/03.jpg" alt=""></li>
+            <li><img src="images/04.jpg" alt=""></li>
+            <li><img src="images/05.jpg" alt=""></li>
+        </ul>
+        <div class="btn" id="btn">
+            <a href="javascript:;" class="left" id="leftbtn">&lt;</a>
+            <a href="javascript:;" class="right" id="rightbtn">&gt;</a>
+        </div>
+        <ol class="sub" id="sub">
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script>
+        
+        var carousel = document.getElementById("carousel");
+        var ul = document.getElementById("pic");
+        var ulLis = ul.children;
+        var leftbtn = document.getElementById("leftbtn");
+        var rightbtn = document.getElementById("rightbtn");
+        var ol = document.getElementById("sub");
+        var olLis = ol.children;
+       
+        var idx = 0;
+       rightbtn.onclick = function(){
+           idx++;
+           if(idx>=ulLis.length){
+               idx=0;
+           }
+           for(var i=0;i<ulLis.length;i++){
+               ulLis[i].className="";
+               olLis[i].className="";
+           }
+           ulLis[idx].className="current";
+           olLis[idx].className="current";
+       }
+       leftbtn.onclick = function(){
+           idx--;
+           if(idx<0){
+               idx=ulLis.length-1;
+           }
+           for(var i=0;i<ulLis.length;i++){
+               ulLis[i].className="";
+               olLis[i].className="";
+           }
+           ulLis[idx].className="current";
+           olLis[idx].className="current";
+       }
+       for(var i=0;i<olLis.length;i++){
+           olLis[i].index=i;
+           olLis[i].onclick = function(){
+               idx=this.index;
+               for(var i=0;i<ulLis.length;i++){
+               ulLis[i].className="";
+               olLis[i].className="";
+           }
+          ulLis[idx].className="current";
+          olLis[idx].className="current";
+           }
+       }
+       var timer;
+       timer = setInterval(rightmove,3000);
+       carousel.onmouseover = function(){
+           clearInterval(timer);
+       }
+       carousel.onmouseout=function(){
+        timer = setInterval(rightmove,3000);
+       }
+       var rightmove=function(){
+           idx++;
+           if(idx>=ulLis.length){
+               idx=0;
+           }
+           for(var i=0;i<ulLis.length;i++){
+               ulLis[i].className="";
+               olLis[i].className="";
+           }
+           ulLis[idx].className="current";
+           olLis[idx].className="current";
+       }
+    </script>
+</body>
+</html>
